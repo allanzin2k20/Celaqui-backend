@@ -1,30 +1,30 @@
 <?php
-class Cel {
+class User {
     
     private $id;
-    private $marca;
-    private $nome;
-    private $preco;
-    private $ano;
+    private $name;
+    private $email;
+    private $pass;
+    private $avatar;
 
-    function __construct($id, $marca, $nome, $preco, $ano) {
+    function __construct($id, $name, $email, $pass, $avatar) {
         $this->id = $id;
-        $this->marca = $marca;
-        $this->nome = $nome;
-        $this->preco = $preco;
-        $this->ano = $ano;
+        $this->name = $name;
+        $this->email = $email;
+        $this->pass = $pass;
+        $this->avatar = $avatar;
     }
 
     function create(){
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("INSERT INTO users (marca, nome, preco, ano)
+            $stmt = $conn->prepare("INSERT INTO users (name, email, pass, avatar)
             VALUES (:name, :email, :pass, :avatar)");
-            $stmt->bindParam(':marca', $this->marca);
-            $stmt->bindParam(':nome', $this->nome);
-            $stmt->bindParam(':preco', $this->preco);
-            $stmt->bindParam(':ano', $this->ano);
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':email', $this->email);
+            $stmt->bindParam(':pass', $this->pass);
+            $stmt->bindParam(':avatar', $this->avatar);
             $stmt->execute();
             $id = $conn->lastInsertId();
             $conn = null;
@@ -38,7 +38,7 @@ class Cel {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("SELECT id, marca, nome, preco, ano FROM lista de celulares");
+            $stmt = $conn->prepare("SELECT id, name, email, avatar FROM users");
             $stmt->execute();
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $conn = null;
@@ -52,7 +52,7 @@ class Cel {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("SELECT id, marca, nome, preco, ano FROM lista de celulares WHERE id = :id;");
+            $stmt = $conn->prepare("SELECT id, name, email, avatar FROM users WHERE id = :id;");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
