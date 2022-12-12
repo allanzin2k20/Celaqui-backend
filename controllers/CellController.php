@@ -1,33 +1,33 @@
 <?php
-class UserController{
-    function signup(){
+class CellController{
+    function create(){
         Router::allowedMethod('POST');
         
         $data = Input::getData();
-        $name = $data['name'];
-        $email = $data['email'];
-        $pass = sha1($data['pass']);
-        $avatar = $data['avatar'];
+        $marca = $data['marca'];
+        $nome = $data['nome'];
+        $preco = $data['preco'];
+        $ano = $data['ano'];
 
         //TODO validar os campos
 
-        $user = new User(null, $name, $email, $pass, $avatar);
-        $id = $user->create();
+        $cell = new Cell(null, $marca, $nome, $preco, $ano);
+        $id = $cell->create();
 
-        $result["success"]["message"] = "User created successfully!";
-        $result["user"] = $data;
-        $result["user"]["id"] = $id;
+        $result["success"]["message"] = "cell created successfully!";
+        $result["cell"] = $data;
+        $result["cell"]["id"] = $id;
         Output::response($result);
     }
 
     function list(){
         Router::allowedMethod('GET');
 
-        $user = new User(null, null, null, null, null);
-        $listUsers = $user->list();
+        $cell = new Cell(null, null, null, null, null);
+        $listCell = $cell->list();
 
         $result["success"]["message"] = "User list has been successfully listed!";
-        $result["data"] = $listUsers;
+        $result["data"] = $listCell;
         Output::response($result);
     }
 
@@ -41,11 +41,11 @@ class UserController{
             Output::response($result, 406);
         }
         
-        $user = new User($id, null, null, null, null);
+        $user = new Cell($id, null, null, null, null);
         $userData = $user->getById();
 
         if($userData){
-            $result["success"]["message"] = "User successfully selected!";
+            $result["success"]["message"] = "Cell successfully selected!";
             $result["data"] = $userData;
             Output::response($result);
         } else {
@@ -67,14 +67,14 @@ class UserController{
 
         Router::allowedRole('admin');
 
-        $user = new User($id, null, null, null, null);
-        $deleted = $user->delete();
+        $cell = new Cell($id, null, null, null, null);
+        $deleted = $cell->delete();
 
         if($deleted){
-            $result["success"]["message"] = "User $id deleted successfully!";
+            $result["success"]["message"] = "Cell $id deleted successfully!";
             Output::response($result);
         } else {
-            $result["error"]["message"] = "User $id not found to be deleted!";
+            $result["error"]["message"] = "Cell $id not found to be deleted!";
             Output::response($result, 404);
         }
     }
@@ -84,25 +84,20 @@ class UserController{
         
         $data = Input::getData();
         $id = $data['id'];
-        $name = $data['name'];
-        $email = $data['email'];
-        $avatar = $data['avatar'];
+        $marca = $data['marca'];
+        $nome = $data['nome'];
+        $preco = $data['preco'];
+        $ano = $data['ano'];
 
-        $idUserLogged = Router::allowedRole('client');
-        if($idUserLogged !== $id){
-            $result['error']['message'] = 'Logged user not authorized to update this user profile.';
-            Output::response($result, 403);
-        }
-
-        $user = new User($id, $name, $email, null, $avatar);
-        $updated = $user->update();
+        $cell = new Cell($id, $marca, $nome, $preco, $ano);
+        $updated = $cell->update();
 
         if($updated){
-            $result["success"]["message"] = "User updated successfully!";
+            $result["success"]["message"] = "Cell updated successfully!";
             $result["user"] = $data;
             Output::response($result);
         } else {
-            $result["error"]["message"] = "User $id not found to be updated!";
+            $result["error"]["message"] = "Cell $id not found to be updated!";
             Output::response($result, 404);
         }
     }

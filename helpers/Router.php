@@ -29,6 +29,28 @@ class Router {
         }
     }
 
+    static function allowedRole($role){
+        $headers = apache_request_headers();
+        if(isset($headers['Authorization'])){
+            $authorization = $headers['Authorization'];
+            $arrayAuth = explode(' ', $authorization);
+            if(isset($arrayAuth[0]) && isset($arrayAuth[1])){
+                $idUser = $arrayAuth[0];
+                $token = $arrayAuth[1];
+                $session = new Session(null, $idUser, $token, null);
+                $tokenIsValid = $session->verifyToken($role);
+                if($tokenIsValid){
+                    return $idUser;
+                } else{
+                    $result['error']['message'] = 'Unauthorized!';
+                    Output::response($result, 403);
+                }
+            }
+        }
+        $result['error']['message'] = 'Authorization user id or token not found!';
+        Output::response($result, 403);
+    }
+
     static function handleCORS(){
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
             header("Access-Control-Allow-Origin: " . ALLOWED_HOSTS);
