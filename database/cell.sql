@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `film`
 --
 
-CREATE TABLE `list-cell` (
+CREATE TABLE `phones` (
   `id` int(11) NOT NULL,
   `marca` varchar(100) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `list-cell` (
 --
 -- Índices para tabela `cell`
 --
-ALTER TABLE `list-cell`
+ALTER TABLE `phones`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52,7 +52,7 @@ ALTER TABLE `list-cell`
 --
 -- AUTO_INCREMENT de tabela `film`
 --
-ALTER TABLE `list-cell`
+ALTER TABLE `phones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

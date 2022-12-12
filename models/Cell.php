@@ -19,7 +19,7 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("INSERT INTO list-cell (marca, nome, preco, ano)
+            $stmt = $conn->prepare("INSERT INTO phones (marca, nome, preco, ano)
             VALUES (:marca, :nome, :preco, :ano)");
             $stmt->bindParam(':marca', $this->marca);
             $stmt->bindParam(':nome', $this->nome);
@@ -38,7 +38,7 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("SELECT * FROM list-cell");
+            $stmt = $conn->prepare("SELECT * FROM phones");
             $stmt->execute();
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $conn = null;
@@ -52,7 +52,7 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("SELECT * FROM list-cell WHERE id = :id;");
+            $stmt = $conn->prepare("SELECT * FROM phones WHERE id = :id;");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             $cell = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -67,7 +67,7 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("DELETE FROM list-cell WHERE id = :id;");
+            $stmt = $conn->prepare("DELETE FROM phones WHERE id = :id;");
             $stmt->bindParam(':id', $this->id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
@@ -86,7 +86,7 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("UPDATE list-cell SET marca = :marca, nome = :nome, preco = :preco, ano = :ano WHERE id = :id;");
+            $stmt = $conn->prepare("UPDATE phones SET marca = :marca, nome = :nome, preco = :preco, ano = :ano WHERE id = :id;");
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':marca', $this->marca);
             $stmt->bindParam(':nome', $this->nome);

@@ -41,8 +41,8 @@ class CellController{
             Output::response($result, 406);
         }
         
-        $user = new Cell($id, null, null, null, null);
-        $userData = $user->getById();
+        $cell = new Cell($id, null, null, null, null);
+        $userData = $cell->getById();
 
         if($userData){
             $result["success"]["message"] = "Cell successfully selected!";
@@ -64,8 +64,6 @@ class CellController{
             $result['error']['message'] = "Id parameter required!";
             Output::response($result, 406);
         }
-
-        Router::allowedRole('admin');
 
         $cell = new Cell($id, null, null, null, null);
         $deleted = $cell->delete();
