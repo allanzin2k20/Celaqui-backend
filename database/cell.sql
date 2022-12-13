@@ -33,6 +33,7 @@ CREATE TABLE `phones` (
   `nome` varchar(100) NOT NULL,
   `preco` varchar(100) NOT NULL,
   `ano` varchar(10) NOT NULL
+  `img` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

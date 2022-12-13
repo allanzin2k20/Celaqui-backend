@@ -6,25 +6,28 @@ class Cell {
     private $nome;
     private $preco;
     private $ano;
+    private $img;
 
-    function __construct($id, $marca, $nome, $preco, $ano) {
+    function __construct($id, $marca, $nome, $preco, $ano, $img) {
         $this->id = $id;
         $this->marca = $marca;
         $this->nome = $nome;
         $this->preco = $preco;
         $this->ano = $ano;
+        $this->img = $img;
     }
 
     function create(){
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("INSERT INTO phones (marca, nome, preco, ano)
-            VALUES (:marca, :nome, :preco, :ano)");
+            $stmt = $conn->prepare("INSERT INTO phones (marca, nome, preco, ano, img)
+            VALUES (:marca, :nome, :preco, :ano, :img)");
             $stmt->bindParam(':marca', $this->marca);
             $stmt->bindParam(':nome', $this->nome);
             $stmt->bindParam(':preco', $this->preco);
             $stmt->bindParam(':ano', $this->ano);
+            $stmt->bindParam(':img', $this->img);
             $stmt->execute();
             $id = $conn->lastInsertId();
             $conn = null;
@@ -86,12 +89,13 @@ class Cell {
         $conn = Database::connect();
         
         try{
-            $stmt = $conn->prepare("UPDATE phones SET marca = :marca, nome = :nome, preco = :preco, ano = :ano WHERE id = :id;");
+            $stmt = $conn->prepare("UPDATE phones SET marca = :marca, nome = :nome, preco = :preco, ano = :ano, img :img WHERE id = :id;");
             $stmt->bindParam(':id', $this->id);
             $stmt->bindParam(':marca', $this->marca);
             $stmt->bindParam(':nome', $this->nome);
             $stmt->bindParam(':preco', $this->preco);
             $stmt->bindParam(':ano', $this->ano);
+            $stmt->bindParam(':img', $this->img);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
             if($rowsAffected){

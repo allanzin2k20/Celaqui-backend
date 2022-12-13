@@ -8,10 +8,11 @@ class CellController{
         $nome = $data['nome'];
         $preco = $data['preco'];
         $ano = $data['ano'];
+        $img = $data['img'];
 
         //TODO validar os campos
 
-        $cell = new Cell(null, $marca, $nome, $preco, $ano);
+        $cell = new Cell(null, $marca, $nome, $preco, $ano, $img);
         $id = $cell->create();
 
         $result["success"]["message"] = "cell created successfully!";
@@ -23,7 +24,7 @@ class CellController{
     function list(){
         Router::allowedMethod('GET');
 
-        $cell = new Cell(null, null, null, null, null);
+        $cell = new Cell(null, null, null, null, null, null);
         $listCell = $cell->list();
 
         $result["success"]["message"] = "User list has been successfully listed!";
@@ -41,7 +42,7 @@ class CellController{
             Output::response($result, 406);
         }
         
-        $cell = new Cell($id, null, null, null, null);
+        $cell = new Cell($id, null, null, null, null, null);
         $userData = $cell->getById();
 
         if($userData){
@@ -65,7 +66,7 @@ class CellController{
             Output::response($result, 406);
         }
 
-        $cell = new Cell($id, null, null, null, null);
+        $cell = new Cell($id, null, null, null, null, null);
         $deleted = $cell->delete();
 
         if($deleted){
@@ -86,8 +87,9 @@ class CellController{
         $nome = $data['nome'];
         $preco = $data['preco'];
         $ano = $data['ano'];
+        $img = $data['img'];
 
-        $cell = new Cell($id, $marca, $nome, $preco, $ano);
+        $cell = new Cell($id, $marca, $nome, $preco, $ano, $img);
         $updated = $cell->update();
 
         if($updated){
